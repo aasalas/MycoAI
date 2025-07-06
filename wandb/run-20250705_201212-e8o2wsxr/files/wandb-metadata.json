@@ -1,0 +1,31 @@
+{
+  "os": "Windows-11-10.0.22631-SP0",
+  "python": "CPython 3.13.3",
+  "startedAt": "2025-07-06T02:12:12.800507Z",
+  "program": "c:\\Users\\Lenovo Yoga\\Desktop\\MycoAI\\model_train.py",
+  "codePath": "model_train.py",
+  "git": {
+    "remote": "https://github.com/aasalas/MycoAI.git",
+    "commit": "11362f2037ed282ab2d5fa6c9ee326aea381f796"
+  },
+  "email": "aaronsalasalvarado@gmail.com",
+  "root": "C:\\Users\\Lenovo Yoga\\Desktop\\MycoAI",
+  "host": "casco99",
+  "executable": "C:\\Users\\Lenovo Yoga\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+  "codePathLocal": "model_train.py",
+  "cpu_count": 6,
+  "cpu_count_logical": 12,
+  "disk": {
+    "/": {
+      "total": "255158382592",
+      "used": "239365046272"
+    }
+  },
+  "memory": {
+    "total": "7896625152"
+  },
+  "cpu": {
+    "count": 6,
+    "countLogical": 12
+  }
+}

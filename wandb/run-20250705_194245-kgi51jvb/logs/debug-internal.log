@@ -1,0 +1,7 @@
+{"time":"2025-07-05T19:42:45.5786507-06:00","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"C:\\Users\\Lenovo Yoga\\Desktop\\MycoAI\\wandb\\run-20250705_194245-kgi51jvb\\logs\\debug-core.log"}
+{"time":"2025-07-05T19:42:45.9925129-06:00","level":"INFO","msg":"created new stream","id":"kgi51jvb"}
+{"time":"2025-07-05T19:42:45.9925129-06:00","level":"INFO","msg":"handler: started","stream_id":"kgi51jvb"}
+{"time":"2025-07-05T19:42:45.9925129-06:00","level":"INFO","msg":"stream: started","id":"kgi51jvb"}
+{"time":"2025-07-05T19:42:45.9930465-06:00","level":"INFO","msg":"writer: Do: started","stream_id":"kgi51jvb"}
+{"time":"2025-07-05T19:42:45.9925129-06:00","level":"INFO","msg":"sender: started","stream_id":"kgi51jvb"}
+{"time":"2025-07-05T19:42:46.24996-06:00","level":"INFO","msg":"Starting system monitor"}

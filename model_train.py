@@ -1,20 +1,37 @@
+import wandb
 import torch
 import torch.nn as nn
 import torch.optim as optim
 import matplotlib.pyplot as plt
+
 
 from dataloader import MycoDataLoader
 from model import MycoModel
 
 # --- Parámetros ---
 DATA_DIR = r'C:\Users\Lenovo Yoga\Desktop\MycoAI\Micorrizas-DataSet'
-SAVE_PATH = 'MycoModel.pth'
-CLASS_COUNTS = [212, 431, 964]
-IMG_SIZE = 224
-BATCH_SIZE = 50
-NUM_EPOCHS = 2
-LEARNING_RATE = 0.001
+SAVE_PATH = 'MycoModel.pth' # Nombre para guardar el modelo entrenado
+IMG_SIZE = 224  # Quizas si aumentamos la resolución mejora la precisión
+BATCH_SIZE = 20
+NUM_EPOCHS = 100
+LEARNING_RATE = 0.0005
+ARCHITECTURE = "mobilenet"  # mobilenet o resnet50
 
+# Inicializa wandb
+wandb.login(key="604cb8bc212df5c53f97526f8520c686e12d8588") #CUENTA DE AARON
+wandb.init(
+    project=f"MycoAI-Classifier",  # Cambia esto por tu proyecto real
+    name=f"{ARCHITECTURE}_img{IMG_SIZE}_{wandb.util.generate_id()[:4]}",
+    config={
+        "architecture": ARCHITECTURE,
+        "epochs": NUM_EPOCHS,
+        "batch_size": BATCH_SIZE,
+        "learning_rate": LEARNING_RATE,
+        "image_size": IMG_SIZE,
+        "optimizer": "Adam",
+        "loss": "CrossEntropyWeighted"
+    }
+)
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(f"Usando dispositivo: {device}")
@@ -26,17 +43,13 @@ val_loader = loader.val_loader
 class_names = loader.class_names
 
 # --- Inicializar modelo ---
-model_builder = MycoModel(num_classes=len(class_names), device=device)
+model_builder = MycoModel(num_classes=len(class_names), device=device, architecture=ARCHITECTURE)
 model = model_builder.model
 
-# --- Pérdida ponderada ---
-total = sum(CLASS_COUNTS)
-weights = [total / c for c in CLASS_COUNTS]
-weights = [w / sum(weights) for w in weights]
-weights_tensor = torch.FloatTensor(weights).to(device)
-
+weights_tensor = loader.get_class_weights()
 criterion = nn.CrossEntropyLoss(weight=weights_tensor)
-optimizer = optim.Adam(model.classifier.parameters(), lr=LEARNING_RATE)
+optimizer = optim.Adam(model.classifier[1].parameters(), lr=LEARNING_RATE) if ARCHITECTURE == "mobilenet" else optim.Adam(model.fc.parameters(), lr=LEARNING_RATE)
+
 
 # --- Entrenamiento ---
 train_losses, val_losses = [], []
@@ -64,6 +77,9 @@ for epoch in range(NUM_EPOCHS):
 
     model.eval()
     val_loss, correct, total = 0.0, 0, 0
+    all_preds = []
+    all_labels = []
+
     with torch.no_grad():
         for inputs, labels in val_loader:
             inputs, labels = inputs.to(device), labels.to(device)
@@ -74,12 +90,31 @@ for epoch in range(NUM_EPOCHS):
             correct += (preds == labels).sum().item()
             total += labels.size(0)
 
+            all_preds.extend(preds.cpu().numpy())
+            all_labels.extend(labels.cpu().numpy())
+
     val_losses.append(val_loss / total)
     val_accuracies.append(correct / total)
 
     print(f"Época {epoch+1}/{NUM_EPOCHS} - "
           f"Train Loss: {train_losses[-1]:.4f}, Acc: {train_accuracies[-1]:.4f} | "
           f"Val Loss: {val_losses[-1]:.4f}, Acc: {val_accuracies[-1]:.4f}")
+
+    # Log de métricas básicas
+    wandb.log({
+        "train_loss": train_losses[-1],
+        "val_loss": val_losses[-1],
+        "train_acc": train_accuracies[-1],
+        "val_acc": val_accuracies[-1],
+        "confusion_matrix": wandb.plot.confusion_matrix(
+            y_true=all_labels,
+            preds=all_preds,
+            class_names=class_names
+        )
+    })
+
+
+
 
 # --- Visualización ---
 plt.figure(figsize=(12, 5))
@@ -98,4 +133,3 @@ plt.show()
 
 # --- Guardar modelo ---
 model_builder.save(SAVE_PATH)
-print(f"Modelo guardado como + {SAVE_PATH}")

@@ -1,0 +1,15 @@
+{"time":"2025-07-05T20:12:12.8078158-06:00","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"C:\\Users\\Lenovo Yoga\\Desktop\\MycoAI\\wandb\\run-20250705_201212-e8o2wsxr\\logs\\debug-core.log"}
+{"time":"2025-07-05T20:12:13.2448487-06:00","level":"INFO","msg":"created new stream","id":"e8o2wsxr"}
+{"time":"2025-07-05T20:12:13.2448487-06:00","level":"INFO","msg":"stream: started","id":"e8o2wsxr"}
+{"time":"2025-07-05T20:12:13.2448487-06:00","level":"INFO","msg":"writer: Do: started","stream_id":"e8o2wsxr"}
+{"time":"2025-07-05T20:12:13.2448487-06:00","level":"INFO","msg":"sender: started","stream_id":"e8o2wsxr"}
+{"time":"2025-07-05T20:12:13.2448487-06:00","level":"INFO","msg":"handler: started","stream_id":"e8o2wsxr"}
+{"time":"2025-07-05T20:12:13.4726429-06:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-07-05T20:12:18.7972111-06:00","level":"INFO","msg":"stream: closing","id":"e8o2wsxr"}
+{"time":"2025-07-05T20:12:18.7972805-06:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-07-05T20:12:18.797787-06:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-07-05T20:12:19.5501044-06:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-07-05T20:12:19.8664106-06:00","level":"INFO","msg":"handler: closed","stream_id":"e8o2wsxr"}
+{"time":"2025-07-05T20:12:19.8664106-06:00","level":"INFO","msg":"sender: closed","stream_id":"e8o2wsxr"}
+{"time":"2025-07-05T20:12:19.8664106-06:00","level":"INFO","msg":"writer: Close: closed","stream_id":"e8o2wsxr"}
+{"time":"2025-07-05T20:12:19.8664106-06:00","level":"INFO","msg":"stream: closed","id":"e8o2wsxr"}

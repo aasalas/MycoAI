@@ -1,0 +1,11 @@
+Usando dispositivo: cpu
+Carpetas encontradas: ['Ecten- domicorriza', 'Ectomicorriza', 'Endomicorriza']
+Traceback (most recent call last):
+  File "c:\Users\Lenovo Yoga\Desktop\MycoAI\model_train.py", line 50, in <module>
+    optimizer = optim.Adam(model.fc.parameters(), lr=LEARNING_RATE)
+                           ^^^^^^^^
+  File "C:\Users\Lenovo Yoga\AppData\Local\Programs\Python\Python313\Lib\site-packages\torch\nn\modules\module.py", line 1940, in __getattr__
+    raise AttributeError(
+        f"'{type(self).__name__}' object has no attribute '{name}'"
+    )
+AttributeError: 'MobileNetV2' object has no attribute 'fc'

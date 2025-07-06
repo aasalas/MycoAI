@@ -1,0 +1,46 @@
+Usando dispositivo: cpu
+Carpetas encontradas: ['Ecten- domicorriza', 'Ectomicorriza', 'Endomicorriza']
+
+Entrenando 100 épocas...
+Época 1/100: Train Loss: 1.0782, Acc: 0.3883
+Val Loss: 1.0523, Acc: 0.5311
+
+
+Época 2/100: Train Loss: 1.0396, Acc: 0.5377
+Val Loss: 1.0246, Acc: 0.5621
+
+
+Época 3/100: Train Loss: 0.9870, Acc: 0.5790
+Val Loss: 1.0157, Acc: 0.6304
+
+
+Época 4/100: Train Loss: 0.9895, Acc: 0.5541
+Val Loss: 0.9762, Acc: 0.5870
+
+
+Época 5/100: Train Loss: 0.9369, Acc: 0.6016
+Val Loss: 0.9654, Acc: 0.6335
+
+
+Época 6/100: Train Loss: 0.9135, Acc: 0.6039
+Val Loss: 0.9581, Acc: 0.6273
+
+
+Época 7/100: Train Loss: 0.8959, Acc: 0.6218
+Val Loss: 0.9252, Acc: 0.6025
+
+
+Época 8/100: Train Loss: 0.8934, Acc: 0.6125
+Val Loss: 0.9383, Acc: 0.6366
+
+
+Época 9/100: Train Loss: 0.8817, Acc: 0.6311
+Val Loss: 0.9445, Acc: 0.6491
+
+
+Época 10/100: Train Loss: 0.8718, Acc: 0.6296
+Val Loss: 0.9430, Acc: 0.6491
+
+
+Época 11/100: Train Loss: 0.8615, Acc: 0.6280
+Val Loss: 0.9727, Acc: 0.6522
