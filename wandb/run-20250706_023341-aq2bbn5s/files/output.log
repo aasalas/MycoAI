@@ -1,0 +1,7 @@
+Usando dispositivo: cpu
+Carpetas encontradas: ['Ecten- domicorriza', 'Ectomicorriza', 'Endomicorriza']
+Downloading: "https://download.pytorch.org/models/resnet152-f82ba261.pth" to C:\Users\Lenovo Yoga/.cache\torch\hub\checkpoints\resnet152-f82ba261.pth
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 230M/230M [01:39<00:00, 2.43MB/s]
+
+Entrenando 100 épocas...
+Época 1/100 - Train Loss: 1.0894, Acc: 0.4187 | Val Loss: 1.0766, Acc: 0.4627

@@ -3,7 +3,7 @@ import torch.nn as nn
 from torchvision import models
 from torchvision.models import (
     MobileNet_V2_Weights,
-    ResNet50_Weights
+    ResNet152_Weights
 )
 
 class MycoModel:
@@ -27,8 +27,8 @@ class MycoModel:
             for param in model.classifier[1].parameters():
                 param.requires_grad = True
 
-        elif self.architecture == "resnet50":
-            model = models.resnet50(weights=ResNet50_Weights.IMAGENET1K_V2)
+        elif self.architecture == "resnet152":
+            model = models.resnet152(weights=ResNet152_Weights.IMAGENET1K_V2)
 
             # Congelar todas las capas
             for param in model.parameters():
@@ -41,7 +41,7 @@ class MycoModel:
                 param.requires_grad = True
 
         else:
-            raise ValueError(f"Arquitectura '{self.architecture}' no soportada. Usa 'mobilenet' o 'resnet50'.")
+            raise ValueError(f"Arquitectura '{self.architecture}' no soportada. Usa 'mobilenet' o 'resnet152'.")
 
         return model.to(self.device)
 

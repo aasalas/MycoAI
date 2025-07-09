@@ -70,14 +70,30 @@ class MycoDataLoader:
 
         # Transformaciones actualizadas con estadísticas reales
         transform_train = transforms.Compose([
-            transforms.RandomResizedCrop(self.img_size, scale=(0.5, 1.5)),
-            transforms.RandomHorizontalFlip(),
-            transforms.RandomRotation(30),
-            transforms.RandomAffine(0, translate=(0.25, 0.25), shear=15),
-            transforms.ToTensor(),
-            transforms.Normalize(mean.tolist(), std.tolist())
-        ])
+            # 1. Transformaciones Geométricas
+            transforms.RandomResizedCrop(self.img_size, scale=(0.5, 1.5)), # Ya lo tienes
+            transforms.RandomHorizontalFlip(), # Ya lo tienes
+            transforms.RandomRotation(30), # Ya lo tienes
+            transforms.RandomAffine(0, translate=(0.25, 0.25), shear=15), # Ya lo tienes
+            transforms.RandomPerspective(distortion_scale=0.2, p=0.5), # NUEVO: Distorsión de perspectiva
+            # transforms.ElasticTransform(alpha=250.0, sigma=10.0, p=0.5), # Opcional: para deformaciones más "orgánicas"
 
+            # 2. Transformaciones de Color y Tono
+            transforms.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.3, hue=0.1), # NUEVO: Variaciones de color
+            transforms.RandomAutocontrast(p=0.2), # NUEVO: Ajuste automático de contraste
+            transforms.RandomEqualize(p=0.2), # NUEVO: Ecualización de histograma
+
+            # 3. Transformaciones de Nitidez y Borrosidad
+            transforms.RandomAdjustSharpness(sharpness_factor=0.5, p=0.2), # NUEVO: Ajuste de nitidez
+            transforms.GaussianBlur(kernel_size=(5, 9)), # NUEVO: Desenfoque gaussiano (puedes ajustar kernel_size)
+
+            # 4. Convertir a Tensor y Normalizar (SIEMPRE al final para la mayoría)
+            transforms.ToTensor(), # Convierte a Tensor (valores [0,1])
+
+            # 6. Normalizar (después de ToTensor y añadir ruido)
+            transforms.Normalize(mean.tolist(), std.tolist()) # Usando tus estadísticas
+        ])
+        
         transform_val = transforms.Compose([
             transforms.Resize(256),
             transforms.CenterCrop(self.img_size),

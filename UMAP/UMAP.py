@@ -10,11 +10,11 @@ import random
 # --- 1. Configuration and Data Preparation ---
 # Path to your dataset root directory.
 # MAKE SURE this path is EXACTLY correct on your system.
-data_dir = r'C:\Users\Lenovo Yoga\Desktop\MycoAI\Micorrizas-DataSet'
+data_dir = r'C:\Users\Lenovo Yoga\Desktop\MycoAI\familias'
 
 # Names of your three class folders.
 # IMPORTANT: Verify these names EXACTLY match your folder names.
-class_folder_names = ['Ectomicorriza', 'Endomicorriza', 'Ectendomicorriza'] # Common correction
+class_folder_names = ['ACAULOSPORACEAE', 'AMBISPORACEAE', 'ARCHAEOSPORACEAE','CLAROIDEOGLOMERACEAE', 'DENTISCUTATACEAE', 'DIVERSISPORACEAE', 'ENTROPHOSPORACEAE', 'GIGASPORACEAE', 'GLOMERACEAE', 'PACISPORACEAE', 'PARAGLOMERACEAE', 'RACOCETRACEAE','SCLEROCYSTACEAE', 'SCUTELLOSPORACEAE'] # Common correction
 
 # Image dimensions to which images will be resized before flattening.
 # Using 224x224, a common size.
@@ -104,13 +104,26 @@ print(f"Supervised UMAP embedding generated with dimensions: {embedding.shape}")
 print("Generating the 2D Supervised UMAP plot...")
 plt.figure(figsize=(10, 8))
 
-# Create the scatter plot, coloring points by their true class labels.
-scatter = plt.scatter(embedding[:, 0], embedding[:, 1], c=all_labels, cmap='viridis', s=10, alpha=0.8)
+# Usa un colormap categórico para colores bien diferenciados
+cmap = plt.get_cmap('tab20')  # Usa 'tab10' si tienes <=10 clases
 
-# Add a legend to map colors to class names.
-legend_handles = scatter.legend_elements()[0]
-plt.legend(handles=legend_handles, labels=class_names,
-           title="Mycorrhiza Classes", bbox_to_anchor=(1.05, 1), loc='upper left')
+# Crea el scatter plot con el nuevo colormap
+scatter = plt.scatter(
+    embedding[:, 0], embedding[:, 1],
+    c=all_labels, cmap=cmap, s=10, alpha=0.8
+)
+
+# Genera la leyenda con los colores correctos
+handles = []
+for i, class_name in enumerate(class_names):
+    handles.append(
+        plt.Line2D([], [], marker="o", color=cmap(i), linestyle="", label=class_name)
+    )
+plt.legend(
+    handles=handles,
+    title="Mycorrhiza Classes",
+    bbox_to_anchor=(1.05, 1), loc='upper left'
+)
 
 plt.title('2D Supervised UMAP Projection of Raw Image Pixels')
 plt.xlabel('UMAP Component 1')

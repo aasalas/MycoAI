@@ -1,0 +1,4 @@
+Usando dispositivo: cpu
+Carpetas encontradas: ['Ecten- domicorriza', 'Ectomicorriza', 'Endomicorriza']
+Downloading: "https://download.pytorch.org/models/resnet152-f82ba261.pth" to C:\Users\Lenovo Yoga/.cache\torch\hub\checkpoints\resnet152-f82ba261.pth
+ 12%|██████████████████████▍                                                                                                                                                               | 28.4M/230M [00:11<01:49, 1.93MB/s]

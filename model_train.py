@@ -12,16 +12,16 @@ from model import MycoModel
 DATA_DIR = r'C:\Users\Lenovo Yoga\Desktop\MycoAI\Micorrizas-DataSet'
 SAVE_PATH = 'MycoModel.pth' # Nombre para guardar el modelo entrenado
 IMG_SIZE = 224  # Quizas si aumentamos la resolución mejora la precisión
-BATCH_SIZE = 20
+BATCH_SIZE = 16
 NUM_EPOCHS = 100
 LEARNING_RATE = 0.0005
-ARCHITECTURE = "mobilenet"  # mobilenet o resnet50
+ARCHITECTURE = "resnet152"  # mobilenet o resnet152
 
 # Inicializa wandb
 wandb.login(key="604cb8bc212df5c53f97526f8520c686e12d8588") #CUENTA DE AARON
 wandb.init(
     project=f"MycoAI-Classifier",  # Cambia esto por tu proyecto real
-    name=f"{ARCHITECTURE}_img{IMG_SIZE}_{wandb.util.generate_id()[:4]}",
+    name=f"{ARCHITECTURE}_img{IMG_SIZE}_bs{BATCH_SIZE}_lr{LEARNING_RATE}_{wandb.util.generate_id()[:4]}",
     config={
         "architecture": ARCHITECTURE,
         "epochs": NUM_EPOCHS,
