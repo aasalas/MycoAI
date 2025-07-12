@@ -8,7 +8,7 @@ from dataloader import MycoDataLoader
 from model import MycoModel
 
 # --- 1. Configuración ---
-data_dir = r'C:\Users\Lenovo Yoga\Desktop\MycoAI\Micorrizas-DataSet'
+data_dir = r'/home/alvaro/Escritorio/MycoAI/MycoAI/preprocessing/dataset_bc_segmented'
 model_path = 'MycoModel.pth'
 
 IMG_SIZE = 224
