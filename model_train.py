@@ -28,9 +28,9 @@ sweep_config = {
     }
 }
 # --- Parámetros ---
-DATA_DIR = r'/home/alvaro/Escritorio/MycoAI/MycoAI/preprocessing/dataset_bc_segmented'
+DATA_DIR = r'/content/drive/MyDrive/preprocessing/dataset_bc_segmented'
 SAVE_PATH = 'MycoModel.pth' # Nombre para guardar el modelo entrenado
-NUM_EPOCHS = 3
+NUM_EPOCHS = 20
 ARCHITECTURE = "resnet50"  # mobilenet o resnet152
 
 # Inicializa wandb
@@ -42,7 +42,7 @@ def train():
     BATCH_SIZE = config.batch_size
     LEARNING_RATE = config.learning_rate
 
-
+    wandb.run.name =f"{ARCHITECTURE}_img{IMG_SIZE[0]}_bs{BATCH_SIZE}_lr{LEARNING_RATE}_epochs{NUM_EPOCHS}_{wandb.util.generate_id()[:4]}"
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     print(f"Usando dispositivo: {device}")
 
