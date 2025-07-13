@@ -95,7 +95,7 @@ class MycoDataLoader:
         ])
         
         transform_val = transforms.Compose([
-            transforms.Resize(256),
+            transforms.Resize(self.img_size),
             transforms.CenterCrop(self.img_size),
             transforms.ToTensor(),
             transforms.Normalize(mean.tolist(), std.tolist())

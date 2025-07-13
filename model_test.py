@@ -9,9 +9,9 @@ from model import MycoModel
 
 # --- 1. Configuración ---
 data_dir = r'/home/alvaro/Escritorio/MycoAI/MycoAI/preprocessing/dataset_bc_segmented'
-model_path = 'MycoModel.pth'
+model_path = 'MycoModel(3).pth'
 
-IMG_SIZE = 224
+IMG_SIZE = 256
 BATCH_SIZE = 32
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")

@@ -24,24 +24,33 @@ sweep_config = {
         },
         'learning_rate': {
             'values': [0.00001, 0.0001, 0.0005] # Valores específicos a probar para
+        },
+        'epoch_num': {
+            'values': [3, 5, 10] # Valores específicos a probar para
+        },
+        'arch': {
+            'values': ["mobilenet","resnet50"] # Valores específicos a probar para
         }
     }
 }
 # --- Parámetros ---
 DATA_DIR = r'/content/drive/MyDrive/preprocessing/dataset_bc_segmented'
 SAVE_PATH = 'MycoModel.pth' # Nombre para guardar el modelo entrenado
-NUM_EPOCHS = 20
-ARCHITECTURE = "resnet50"  # mobilenet o resnet152
+
+best_f1 = 0.0  # Para guardar solo el mejor modelo
 
 # Inicializa wandb
+
 def train():
+    global best_f1
     wandb.login(key="ce64ccc4ab0dc13513de5af31b6086e12830f6e9") #CUENTA DE ALVARO
     wandb.init(project=f"MycoAI-Classifier")
     config = wandb.config
     IMG_SIZE = (config.img_size,config.img_size)
     BATCH_SIZE = config.batch_size
     LEARNING_RATE = config.learning_rate
-
+    NUM_EPOCHS = config.epoch_num
+    ARCHITECTURE = config.arch
     wandb.run.name =f"{ARCHITECTURE}_img{IMG_SIZE[0]}_bs{BATCH_SIZE}_lr{LEARNING_RATE}_epochs{NUM_EPOCHS}_{wandb.util.generate_id()[:4]}"
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     print(f"Usando dispositivo: {device}")
@@ -113,25 +122,31 @@ def train():
         f1_macro = f1_score(all_labels, all_preds, average='macro')
 
         wandb.log({
-        "train_loss": train_losses[-1],
-        "val_loss": val_losses[-1],
-        "train_acc": train_accuracies[-1],
-        "val_acc": val_accuracies[-1],
-        "f1_macro": f1_macro, 
-        "confusion_matrix": wandb.plot.confusion_matrix(
-            y_true=all_labels,
-            preds=all_preds,
-            class_names=class_names
+            "train_loss": train_losses[-1],
+            "val_loss": val_losses[-1],
+            "train_acc": train_accuracies[-1],
+            "val_acc": val_accuracies[-1],
+            "f1_macro": f1_macro, 
+            "confusion_matrix": wandb.plot.confusion_matrix(
+                y_true=all_labels,
+                preds=all_preds,
+                class_names=class_names
             )
         })
 
+        # --- Guardar el mejor modelo basado en F1 Macro ---
+        if f1_macro > best_f1:
+            best_f1 = f1_macro
+            model_builder.save(SAVE_PATH)
+            print(f"✅ Nuevo mejor modelo guardado con F1 Macro: {best_f1:.4f}")
 
 
 
 
 
-    # --- Guardar modelo ---
-    #model_builder.save(SAVE_PATH)
+
+
+
 if __name__ == "__main__":
     sweep_id = wandb.sweep(sweep_config, project="MycoAI-Classifier")
     wandb.agent(sweep_id, function=train, count=27)
