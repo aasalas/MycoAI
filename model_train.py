@@ -17,16 +17,16 @@ sweep_config = {
     },
     'parameters': {      # Definición de los hiperparámetros y sus valores/rangos
         'img_size': {
-            'values': [256, 320, 384] # Valores específicos a probar para el tamaño de imagen
+            'values': [256, 320] # Valores específicos a probar para el tamaño de imagen
         },
         'batch_size': {
-            'values': [2, 4, 8] # Valores específicos a probar para
+            'values': [2, 4] # Valores específicos a probar para
         },
         'learning_rate': {
-            'values': [0.00001, 0.0001, 0.0005] # Valores específicos a probar para
+            'values': [0.00001, 0.0001] # Valores específicos a probar para
         },
         'epoch_num': {
-            'values': [3, 5, 10] # Valores específicos a probar para
+            'values': [3, 5] # Valores específicos a probar para
         },
         'arch': {
             'values': ["mobilenet","resnet50"] # Valores específicos a probar para
